@@ -8,6 +8,10 @@
 
     require_once "head.php";
 ?>
+<link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
 
   <div class="content-wrapper">
 
@@ -32,7 +36,7 @@
                 
         <button type="button" class="btn btn-primary" onclick="mostrarform(true)">
           <i class="fa fa-plus" style='margin-right: 3px;' aria-hidden="true"></i>Agregar Carro</button>
-          <br>
+          
               <br>
               
               </div>
@@ -149,7 +153,6 @@
         <div class="col-md-3">
             <label for="tipocarroceria">Tipo de Carrocería</label>
             <select name="tipocarroceria" id="tipocarroceria" class="form-control">
-                <option value="">Seleccione tipo de vehículo</option>
                 <option value="Sedan">Sedan</option>
                 <option value="Hatchback">Hatchback</option>
                 <option value="SUV">SUV</option>
@@ -201,9 +204,9 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <label>Fotos:</label>
-            <input type="file" class="filepond" id="fotos" name="fotos[]" accept=".jpg,.jpeg,.png,.gif" multiple>
+            <input type="file" class="filepond" id="fotos" name="fotos[]" multiple>
         </div>
 
     </div>
@@ -241,8 +244,9 @@
     require_once "footer.php";
 ?>
 
-
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -260,13 +264,15 @@
     });
   });
 
-    FilePond.create(document.querySelector('.filepond'),
-    {
+    FilePond.registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+
+    const pond = FilePond.create(document.querySelector('.filepond'),{
         acceptedFileTypes: ['image/*'],
         allowMultiple: true,
-        fileValidateTypeLabelExpectedTypes: 'Solo se permiten imágenes',
+        imagePreviewHeight: 120,
         labelIdle: 'Arrastre las fotografías aquí o <span class="filepond--label-action">Seleccione archivos</span>'
     }) ;
+
 
 </script>
 

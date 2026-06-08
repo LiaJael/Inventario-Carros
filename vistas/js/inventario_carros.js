@@ -95,6 +95,12 @@ function guardarRegistro(){
 	
 
 	var formData = new FormData($("#formulario")[0]);
+
+	var fotos = pond.getFiles();
+	fotos.forEach((foto, indice) => {
+		formData.append("fotos[]", foto.file);
+	});
+
 	$.ajax({
 		url: "../ajax/inventario_carros.php?opc=guardaryeditar",
 	    type: "POST",

@@ -13,9 +13,23 @@
 
 
  <div class="card">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Registro de Usuarios</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="tablero.php">Dashboard</a></li>
+              <li class="breadcrumb-item active">Registro de Usuarios</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+              
               <div class="card-header">
-                <h3 class="card-title">REGISTRO DE USUARIOS</h3>
-                <br>
         <?php if ($_SESSION['crearusuario'] == 1) { ?>
         <button type="button" class="btn btn-primary" onclick="mostrarform(true)">
           <i class="fa fa-plus" aria-hidden="true"></i>Crear Usuario</button>
@@ -52,7 +66,7 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-  <div class="panel-body" id="formularioregistro" style="background: white;" >
+  <div class="panel-body p-4" id="formularioregistro" style="background: white;" >
       <h3>CREAR REGISTRO DE USUARIOS</h3>
      <form id="formulario" method="POST"  enctype="multipart/form-data">
         <input type="hidden" id="idcategoria"  name="idcategoria">   
@@ -198,7 +212,6 @@
                             <div class="card-body">
 
                                 <div class="row">
-                                    <label>Permisos</label>
                                     <div id="listadopermisos"></div>
                                  
                                 </div>

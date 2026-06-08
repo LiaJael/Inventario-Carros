@@ -28,7 +28,7 @@ switch ($_GET['opc']) {
 			$_SESSION['nombre'] = $fetch['nombre'];
 			$_SESSION['imagen'] = $fetch['imagen'];
 			$_SESSION['login'] = $fetch['login'];
-			$_SESSION['cargo'] = $fetch['cargo']; 
+			$_SESSION['cargo'] = $fetch['cargo'];
 			if ($_SESSION['imagen'] == "") {
 
 				$_SESSION['imagen'] = "icono-blanco.png";
@@ -60,14 +60,30 @@ switch ($_GET['opc']) {
 
 		break;
 
+	// case 'permisos':
+	// 	$resp = $categoria->listar("select * from permiso");
+	// 	$data = array();
+	// 	$cont = 0;
+	// 	while ($fila = $resp->fetch_object()) {
+	// 		echo '<input type="checkbox" class="form-control-group" name="permisos[]" id="permisos[]"  value="' . $fila->idpermiso . '">' . $fila->nombre . '<br>';
+	// 	}
+	// 	break;
 	case 'permisos':
-		$resp = $categoria->listar("select * from permiso");
-		$data = array();
-		$cont = 0;
-		echo '<br><br>';
+
+		$resp = $categoria->listar("SELECT * FROM permiso");
+
+		echo '<div class="row">';
 		while ($fila = $resp->fetch_object()) {
-			echo '<input type="checkbox" class="form-control-group" name="permisos[]" id="permisos[]"  value="' . $fila->idpermiso . '">' . $fila->nombre . '<br>';
+
+			echo '<div class="col-md-4"> 
+			<div class="form-check form-switch"> 
+			<input class="form-check-input" type="checkbox" name="permisos[]"  value="' . $fila->idpermiso . '" id="permiso_' . $fila->idpermiso . '" role="switch">
+			<label class="form-check-label" for="permiso_' . $fila->idpermiso . '">' . $fila->nombre . '</label></div>
+			</div>';
 		}
+
+		echo '</div>';
+
 		break;
 
 	case 'listar':
@@ -173,7 +189,7 @@ switch ($_GET['opc']) {
 				$sql = "update usuario set imagen='$imagen' where idusuario='$idcategoria'";
 				$categoria->insertar($sql);
 			}
-			
+
 
 			$lista = $_POST['permisos'] ?? [];
 			$categoria->insertar("delete from usuario_permiso where idusuario=$idcategoria");
@@ -192,14 +208,14 @@ switch ($_GET['opc']) {
 		break;
 	case 'mostrar':
 		$respx = $categoria->mostrar("SELECT * FROM usuario WHERE idusuario=$idcategoria");
-		
-			$sqlPermisos = "SELECT idpermiso FROM usuario_permiso WHERE idusuario='" . $idcategoria . "'";
-			$marcados = $categoria->listar($sqlPermisos);
-			
-			$valores = [];
-			while ($per = $marcados->fetch_object()) {
-				array_push($valores, (int)$per->idpermiso);
-			}
+
+		$sqlPermisos = "SELECT idpermiso FROM usuario_permiso WHERE idusuario='" . $idcategoria . "'";
+		$marcados = $categoria->listar($sqlPermisos);
+
+		$valores = [];
+		while ($per = $marcados->fetch_object()) {
+			array_push($valores, (int)$per->idpermiso);
+		}
 
 		$respx['permisos'] = $valores;
 

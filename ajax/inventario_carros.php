@@ -21,7 +21,7 @@ $gastosextra   = isset($_POST['gastosextra']) ? limpiarCadena($_POST['gastosextr
 $fecha_ingreso   = isset($_POST['fechaingreso']) ? limpiarCadena($_POST['fechaingreso']) : "";
 $estado  = isset($_POST['estado']) ? limpiarCadena($_POST['estado']) : "";
 $observaciones = isset($_POST['observaciones']) ? limpiarCadena($_POST['observaciones']) : "";
-$fotos = isset($_POST['fotos']) ? limpiarCadena($_POST['fotos']) : [];
+
 
 switch ($_GET['opc']) {
 	case 'listar':
@@ -75,7 +75,8 @@ switch ($_GET['opc']) {
 
 	case 'guardaryeditar':
 
-
+		// var_dump($_FILES['fotos']);
+		// exit();
 		$fotos = [];
 		for ($i = 0; $i < count($_FILES['fotos']['name']); $i++) {
 
@@ -84,7 +85,7 @@ switch ($_GET['opc']) {
 			$tipo   = $_FILES['fotos']['type'][$i];
 
 			if (!empty($tmp) && is_uploaded_file($tmp)) {
-				if ($tipo == "image/jpg" || $tipo == "image/jpeg" || $tipo == "image/png") {
+				if ($tipo == "image/*") {
 					$ext = pathinfo($nombre, PATHINFO_EXTENSION);
 					$foto = round(microtime(true)) . "_" . $i . "." . $ext;
 					move_uploaded_file($tmp, "../files/carros/" . $foto);
@@ -102,7 +103,7 @@ switch ($_GET['opc']) {
 
 
 			foreach($fotos as $foto) {
-				$sql_foto = "INSERT INTO `fotos_carros`(`idcarro`, `foto`) VALUES ((SELECT idcarro FROM carros WHERE vin='$vin'), '$foto')";
+				$sql_foto = "INSERT INTO `fotos_carro`(`idcarro`, `ruta`) VALUES ((SELECT idcarro FROM carros WHERE vin='$vin'), '$foto')";
 				$categoria->insertar($sql_foto);
 			}
 
