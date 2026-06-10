@@ -18,12 +18,12 @@ if (!isset($_SESSION['nombre']) || empty($_SESSION['nombre'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Registro de Clientes</h1>
+            <h1 class="m-0"><b>Registro de Facturas</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item active">Registro de Clientes</li>
+              <li class="breadcrumb-item active">Registro de Facturas</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -33,8 +33,8 @@ if (!isset($_SESSION['nombre']) || empty($_SESSION['nombre'])) {
                 
     <?PHP
 if ($_SESSION['crearcl']==1)
-    echo    '<button type="button" class="btn btn-success" onclick="mostrarform(true)">
-          <i class="fa fa-plus" aria-hidden="true"></i>Crear registro</button>';
+    echo    '<button type="button" class="btn btn-primary" onclick="mostrarform(true)">
+          <i class="fa fa-plus" aria-hidden="true"></i>Crear Factura</button>';
     ?>
               </div>
               <!-- /.card-header -->
@@ -43,14 +43,16 @@ if ($_SESSION['crearcl']==1)
                   <thead>
                   <tr>
                     <th>Opciones</th>
-                    <th>Tipo de Cliente</th>
-                    <th>RTN</th>
-                    <th>Nombre Completo / Razón Social</th>                    
-                    <th>Teléfono</th>
-                    <th>Correo Electrónico</th>
-                    <th>Dirección</th>
-                    <th>Fecha de Registro</th>
-                    <th>Estado</th>
+                        <th>No. Factura</th>
+                        <th>Fecha</th>
+                        <th>Nombre Cliente</th>
+                        <th>Nombre Usuario</th>
+                        <th>Subtotal</th>
+                        <th>Descuento</th>
+                        <th>Impuestos</th>
+                        <th>Total</th>
+                        <th>Método de Pago</th>
+                        <th>Estado</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -58,15 +60,17 @@ if ($_SESSION['crearcl']==1)
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Opciones</th>
-                    <th>Tipo de Cliente</th>
-                    <th>RTN</th>
-                    <th>Nombre Completo / Razón Social</th>
-                    <th>Teléfono</th>
-                    <th>Correo Electrónico</th>
-                    <th>Dirección</th>
-                    <th>Fecha de Registro</th>
-                    <th>Estado</th>
+                        <th>Opciones</th>
+                        <th>No. Factura</th>
+                        <th>Fecha</th>
+                        <th>Nombre Cliente</th>
+                        <th>Nombre Usuario</th>
+                        <th>Subtotal</th>
+                        <th>Descuento</th>
+                        <th>Impuestos</th>
+                        <th>Total</th>
+                        <th>Método de Pago</th>
+                        <th>Estado</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -75,12 +79,25 @@ if ($_SESSION['crearcl']==1)
             </div>
             <!-- /.card -->
   <div class="panel-body p-4" id="formularioregistro" style="background: white;" >
-      <h3>Registrar un Cliente</h3>
+      <h3><b>Crear Factura</b></h3>
       <br>
      <form id="formulario" method="POST">
     <input type="hidden" id="idcliente"  name="idcliente">
 
+
+    <h4>Datos del Cliente</h4>
     <div class="row">
+
+        <div class="col-md-5">
+            <label>Cliente:</label>
+            <select name="cliente" id="cliente" class="form-control" onchange="mostrarCliente()">
+            </select>
+        </div>
+    </div>
+    <br>
+
+    
+    <div class="row datos-cliente">
 
         <div class="col-md-3">
             <label>Tipo de Cliente:</label>
@@ -109,7 +126,7 @@ if ($_SESSION['crearcl']==1)
 
     <br>
 
-    <div class="row">
+    <div class="row datos-cliente">
 
         <div class="col-md-4">
             <label>Correo Electrónico:</label>
@@ -125,10 +142,97 @@ if ($_SESSION['crearcl']==1)
         <div class="col-md-3">
             <label>Estado:</label>
             <select name="estado" id="estado" class="form-control">
-                <option value="Activo">Activo</option>
+                <option value="Activo" selected>Activo</option>
                 <option value="Inactivo">Inactivo</option>
             </select>
         </div>
+
+    </div>
+
+    <br>
+
+    
+    <h4>Datos del Carro</h4>
+    <div class="row">
+
+        <div class="col-md-5">
+            <label>Carro:</label>
+            <select name="carro" id="carro" class="form-control">
+            </select>
+        </div>
+    </div>
+    <br>
+
+    <div class="row datos-carro">
+
+        <!-- <div class="col-md-3">
+            <label>Tipo de Cliente:</label>
+            <select name="tipocliente" id="tipocliente" class="form-control">
+                <option value="Natural">Natural</option>
+                <option value="Juridica">Jurídica</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>RTN:</label>
+            <input type="text" name="rtn" id="rtn" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <label>Nombre Completo / Razón Social:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control">
+        </div>
+
+
+        <div class="col-md-3">
+            <label>Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" class="form-control">
+        </div> -->
+
+    </div>
+
+    <br>
+
+
+    <br>
+    <h4>Datos de la Factura</h4>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <label>Fecha:</label>
+            <input type="date" name="fecha" id="fecha" class="form-control" value="<?php echo date('Y-m-d');?>">
+        </div>
+
+        <div class="col-md-3 datos-cliente">
+            <label>Método de Pago:</label>
+            <select name="metodopago" id="metodopago" class="form-control">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Transferencia">Transferencia</option>
+            </select>
+        </div>
+
+                <div class="col-md-3">
+            <label>Estado:</label>
+            <select name="estado" id="estado" class="form-control">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Pagada">Pagada</option>
+                <option value="Anulada">Anulada</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label>Descuento:</label>
+            <input type="number" name="descuento" id="descuento" class="form-control">
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+
+
 
     </div>
 
@@ -182,7 +286,7 @@ if ($_SESSION['crearcl']==1)
     });
   });
 </script>
-<script src="js/clientes.js"></script>
+<script src="js/facturas.js"></script>
 
 
 

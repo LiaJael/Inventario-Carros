@@ -36,6 +36,7 @@ function verificar(){
 
         },
         function(respuesta){
+            // console.log(respuesta);
             let cargo = JSON.parse(respuesta); 
             // alert("Cargo "+cargo);
         //    if(cargo=="Administrador"){

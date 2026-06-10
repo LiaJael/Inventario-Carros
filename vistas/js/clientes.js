@@ -76,7 +76,7 @@ function limpiar(){
 		$("#correoelectronico").val("");	
 		$("#tipocliente").val("");			
 		//$("#tipocliente").val(data.tipocliente).trigger('change');
-		$("#estado").val("");
+		$("#estado").val("Activo");
 
 }
 function guardarRegistro(){

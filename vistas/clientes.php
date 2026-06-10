@@ -33,8 +33,8 @@ if (!isset($_SESSION['nombre']) || empty($_SESSION['nombre'])) {
                 
     <?PHP
 if ($_SESSION['crearcl']==1)
-    echo    '<button type="button" class="btn btn-success" onclick="mostrarform(true)">
-          <i class="fa fa-plus" aria-hidden="true"></i>Crear registro</button>';
+    echo    '<button type="button" class="btn btn-primary" onclick="mostrarform(true)">
+          <i class="fa fa-plus" aria-hidden="true"></i>Añadir Cliente</button>';
     ?>
               </div>
               <!-- /.card-header -->
@@ -125,7 +125,7 @@ if ($_SESSION['crearcl']==1)
         <div class="col-md-3">
             <label>Estado:</label>
             <select name="estado" id="estado" class="form-control">
-                <option value="Activo">Activo</option>
+                <option value="Activo" selected>Activo</option>
                 <option value="Inactivo">Inactivo</option>
             </select>
         </div>

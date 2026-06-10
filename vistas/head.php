@@ -285,7 +285,7 @@
               <?PHP
           if ($_SESSION['crearcl']==1 || $_SESSION['editarcl']==1 || $_SESSION['anularcl']==1 )
               echo  '<li class="nav-item">
-                <a href="factura.php" class="nav-link">
+                <a href="facturas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Facturas</p>
                 </a>
